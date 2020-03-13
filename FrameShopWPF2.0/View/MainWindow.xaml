@@ -1,0 +1,23 @@
+﻿<Window x:Class="FrameShopWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrameShopWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="496.89" Width="444.8">
+ 
+    <Grid Margin="0,0,3.4,1.2">
+        <StackPanel x:Name="materialsStP" HorizontalAlignment="Left" Height="257" Margin="10,49,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label Content="Choose materials:" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="widthTextBox" HorizontalAlignment="Left" Height="23" Margin="278,26,-242,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="lengthTextBox" HorizontalAlignment="Left" Height="23" Margin="278,54,-242,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="quantityTextBox" HorizontalAlignment="Left" Height="23" Margin="278,82,-242,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="checkButton" Command="{Binding CheckResults}" Content="Check" HorizontalAlignment="Left" Margin="278,118,-197,0" VerticalAlignment="Top" Width="75" Click="CheckButton_Click"/>
+        <Label Content="Width:" HorizontalAlignment="Left" Margin="173,26,-117,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Length:" HorizontalAlignment="Left" Margin="173,54,-117,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.52,2.391"/>
+        <Label Content="Quantity:" HorizontalAlignment="Left" Margin="173,82,-117,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="checkLabel" Content="" HorizontalAlignment="Left" Margin="173,146,0,0" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.56,3.703" Height="310"/>
+
+    </Grid>
+</Window>

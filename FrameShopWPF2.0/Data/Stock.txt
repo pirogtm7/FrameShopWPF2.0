@@ -1,0 +1,5 @@
+﻿Name = Wood , QuanInStock = 213 , QuanPerUnit = 5
+Name = Metal , QuanInStock = 100 , QuanPerUnit = 2
+Name = Plastic , QuanInStock = 43 , QuanPerUnit = 3
+Name = Paint , QuanInStock = 300 , QuanPerUnit = 6
+Name = Varnish , QuanInStock = 200 , QuanPerUnit = 5
