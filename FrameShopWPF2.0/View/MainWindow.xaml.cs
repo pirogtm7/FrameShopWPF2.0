@@ -15,68 +15,67 @@ using System.Windows.Shapes;
 
 namespace FrameShopWPF
 {
-
     public partial class MainWindow : Window
     {
         FrameShop myFrameShop = new FrameShop();
 
-        Frame myFrame;
+        //Frame myFrame;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            DataAccess.GetDataFromFile(myFrameShop);
+            //myFrameShop.FrameShopFill();
 
-            foreach (Material material in myFrameShop.Materials)
-            {
-                CheckBox chk = new CheckBox();
-                chk.Content = material.Name;
-                materialsStP.Children.Add(chk);
-            }
+            //foreach (Material material in myFrameShop.Materials)
+            //{
+            //    CheckBox chk = new CheckBox();
+            //    chk.Content = material.Name;
+            //    materialsStP.Children.Add(chk);
+            //}
         }
 
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
-            checkLabel.Content = "";
+            //    checkLabel.Content = "";
 
-            myFrame = new Frame()
-            {
-                Width = Convert.ToInt32(widthTextBox.Text),
-                Length = Convert.ToInt32(lengthTextBox.Text),
-                Quantity = Convert.ToInt32(quantityTextBox.Text)
-            };
+            //    myFrame = new Frame()
+            //    {
+            //        Width = Convert.ToInt32(widthTextBox.Text),
+            //        Length = Convert.ToInt32(lengthTextBox.Text),
+            //        Quantity = Convert.ToInt32(quantityTextBox.Text)
+            //    };
 
-            foreach (Material material in myFrameShop.Materials)
-            {
-                foreach(CheckBox chk in materialsStP.Children)
-                {
-                    if (chk.IsChecked == true)
-                    {
-                        if (material.Name == chk.Content.ToString())
-                        {
+            //    foreach (Material material in myFrameShop.Materials)
+            //    {
+            //        foreach(CheckBox chk in materialsStP.Children)
+            //        {
+            //            if (chk.IsChecked == true)
+            //            {
+            //                if (material.Name == chk.Content.ToString())
+            //                {
 
-                            myFrame.Materials.Add(material);
+            //                    myFrame.Materials.Add(material);
 
-                            int finalAmount = myFrame.FinalAmount(material);
+            //                    int finalAmount = myFrame.FinalAmount(material);
 
-                            if (material.QuanInStock >= finalAmount)
-                            {
-                                checkLabel.Content += "You have enough of " + material.Name + ".\nYou need: "
-                                    + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
-                            }
+            //                    if (material.QuanInStock >= finalAmount)
+            //                    {
+            //                        checkLabel.Content += "You have enough of " + material.Name + ".\nYou need: "
+            //                            + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
+            //                    }
 
-                            else if (material.QuanInStock < finalAmount)
-                            {
-                                checkLabel.Content += "You don't have enough of " + material.Name + ".\nYou need: "
-                                    + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
-                            }
-                        }
-                    }
-                }
-            }
+            //                    else if (material.QuanInStock < finalAmount)
+            //                    {
+            //                        checkLabel.Content += "You don't have enough of " + material.Name + ".\nYou need: "
+            //                            + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
 
-            myFrame.Save();
+            //    myFrame.Save();
         }
     }
 }
