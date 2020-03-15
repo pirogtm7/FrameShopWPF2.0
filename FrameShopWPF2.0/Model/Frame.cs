@@ -16,6 +16,7 @@ namespace FrameShopWPF
         public int Length { get { return length; } set { length = value; } }
         public int Quantity { get { return quantity; } set { quantity = value; } }
 
+
         public int FinalAmount(Material material)
         {
             int finalAmount = material.QuanPerUnit * Width * Length * Quantity;

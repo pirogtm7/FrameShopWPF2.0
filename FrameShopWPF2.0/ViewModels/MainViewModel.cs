@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,31 +13,10 @@ namespace FrameShopWPF
         FrameShop myFrameShop = new FrameShop();
         Frame myFrame;
 
-        private string _firstName;
-        public string FirstName
+        private ObservableCollection<CheckedListItem<string>> _customCheckBox;
+        public ObservableCollection<CheckedListItem<string>> CustomCheckBox
         {
-            set
-            {
-                _firstName = value;
-                OnPropertyChanged();
-            }
-            get { return _firstName; }
-        }
 
-        private string _secondName;
-        public string SecondName
-        {
-            set
-            {
-                _secondName = value;
-                OnPropertyChanged();
-            }
-            get { return _secondName; }
-        }
-
-        private List<string> _customCheckBox;
-        public List<string> CustomCheckBox
-        {
             set
             {
                 _customCheckBox = value;
@@ -67,7 +47,7 @@ namespace FrameShopWPF
             get { return _length; }
         }
 
-        private int _quantity;
+        private int _quantity = 1;
         public int QuantityVM
         {
             set
@@ -99,34 +79,53 @@ namespace FrameShopWPF
             }
             get { return _checkLabel; }
         }
-        
-        //public string FirstName
-        //{
-        //    get { return _firstName; }
-        //    set { SetProperty(ref _firstName, value); }
-        //}
 
-        public MainViewModel()
+        public class CheckedListItem<T> : ViewModelBase
         {
-            FirstName = "test1";
-            myFrameShop.FrameShopFill();
+            private bool _isChecked;
+            private T _item;
 
-            CustomCheckBox = new List<string>();
-
-            foreach (Material material in myFrameShop.Materials)
+            public CheckedListItem()
             {
-                CustomCheckBox.Add(material.Name);
+            }
+
+            public CheckedListItem(T item, bool isChecked = false)
+            {
+                item = _item;
+                isChecked = _isChecked;
+            }
+
+            public T Item
+            {
+                set
+                {
+                    _item = value;
+                    OnPropertyChanged();
+                }
+                get { return _item; }
+            }
+
+
+            public bool IsChecked
+            {
+                set
+                {
+                    _isChecked = value;
+                    OnPropertyChanged();
+                }
+                get { return _isChecked; }
             }
         }
 
-        public ICommand TestButton
+        public MainViewModel()
         {
-            get
+            myFrameShop.FrameShopFill();
+
+            CustomCheckBox = new ObservableCollection<CheckedListItem<string>>();
+
+            foreach (Material material in myFrameShop.Materials)
             {
-                return new DelegateCommand((obj) =>
-                {
-                    SecondName = "test2";
-                });
+                CustomCheckBox.Add(new CheckedListItem<string>() { Item = material.Name });
             }
         }
 
@@ -147,27 +146,29 @@ namespace FrameShopWPF
 
                     foreach (Material material in myFrameShop.Materials)
                     {
-                        if (material.Name == SelectedItem)
+                        foreach (CheckedListItem<string> i in CustomCheckBox)
                         {
-
-                            myFrame.Materials.Add(material);
-
-                            int finalAmount = myFrame.FinalAmount(material);
-
-                            if (material.QuanInStock >= finalAmount)
+                            if (material.Name == i.Item & i.IsChecked == true)
                             {
-                                CheckLabel += "You have enough of " + material.Name + ".\nYou need: "
-                                    + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
-                            }
 
-                            else if (material.QuanInStock < finalAmount)
-                            {
-                                CheckLabel += "You don't have enough of " + material.Name + ".\nYou need: "
-                                    + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
+                                myFrame.Materials.Add(material);
+
+                                int finalAmount = myFrame.FinalAmount(material);
+
+                                if (material.QuanInStock >= finalAmount)
+                                {
+                                    CheckLabel += "You have enough of " + material.Name + ".\nYou need: "
+                                        + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
+                                }
+
+                                else if (material.QuanInStock < finalAmount)
+                                {
+                                    CheckLabel += "You don't have enough of " + material.Name + ".\nYou need: "
+                                        + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
+                                }
                             }
                         }
                     }
-
                     myFrame.Save();
                 });
             }

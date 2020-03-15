@@ -5,28 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrameShopWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="634.725" Width="778.423">
+        Title="MainWindow" Height="512.325" Width="498.823">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
-    <Grid Margin="0,0,3.4,1.2">
-        <StackPanel x:Name="materialsStP"  HorizontalAlignment="Left" Height="173" Margin="10,49,0,0" VerticalAlignment="Top" Width="136">
-            <CheckBox Content="{Binding CustomCheckBox}"/>
-        </StackPanel>
+    <Grid Margin="0,0,0,3.4" HorizontalAlignment="Left" Width="489">
+        <ListBox x:Name="materialsListBox" ItemsSource="{Binding CustomCheckBox}" HorizontalAlignment="Left" Height="183" Margin="14,49,0,0" VerticalAlignment="Top" Width="100">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Item}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label Content="Choose materials:" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="widthTextBox" HorizontalAlignment="Left" Height="23" Margin="278,26,-242,0" TextWrapping="Wrap" Text="{Binding WidthVM}" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="lengthTextBox" HorizontalAlignment="Left" Height="23" Margin="278,54,-242,0" TextWrapping="Wrap" Text="{Binding LengthVM}" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="quantityTextBox" HorizontalAlignment="Left" Height="23" Margin="278,82,-242,0" TextWrapping="Wrap" Text="{Binding QuantityVM}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="widthTextBox" Text="{Binding Path=WidthVM, Mode=OneWayToSource}" HorizontalAlignment="Left" Height="23" Margin="278,26,-242,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="lengthTextBox" Text="{Binding Path=LengthVM, Mode=OneWayToSource}" HorizontalAlignment="Left" Height="23" Margin="278,54,-242,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="quantityTextBox" Text="{Binding QuantityVM}" HorizontalAlignment="Left" Height="23" Margin="278,82,-242,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="checkButton" Command="{Binding CheckButton}" Content="Check" HorizontalAlignment="Left" Margin="278,118,-197,0" VerticalAlignment="Top" Width="75" Click="CheckButton_Click"/>
         <Label Content="Width:" HorizontalAlignment="Left" Margin="173,26,-117,0" VerticalAlignment="Top" Width="100"/>
         <Label Content="Length:" HorizontalAlignment="Left" Margin="173,54,-117,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.52,2.391"/>
         <Label Content="Quantity:" HorizontalAlignment="Left" Margin="173,82,-117,0" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="checkLabel" Content="{Binding CheckLabel}" HorizontalAlignment="Left" Margin="173,146,0,0" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.56,3.703" Height="310"/>
-        <Label x:Name="testLabel1" Content="{Binding FirstName}" Margin="10,315,289,193.2"/>
-        <Label x:Name="testLabel2" Content="{Binding SecondName}" Margin="10,345,289,159.2" RenderTransformOrigin="0.433,1.31"/>
-        <Button x:Name="testButton" Command="{Binding TestButton}" Content="Test" HorizontalAlignment="Left" Margin="10,379,0,0" VerticalAlignment="Top" Width="75"  RenderTransformOrigin="-0.784,2.24"/>
-        <ListBox x:Name="materialsListBox" ItemsSource="{Binding CustomCheckBox}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Left" Height="183" Margin="443,23,0,0" VerticalAlignment="Top" Width="100"/>
-
-
     </Grid>
 </Window>
