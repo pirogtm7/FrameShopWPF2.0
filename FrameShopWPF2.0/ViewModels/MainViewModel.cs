@@ -10,13 +10,16 @@ namespace FrameShopWPF
 {
     public class MainViewModel : ViewModelBase
     {
-        FrameShop myFrameShop = new FrameShop();
-        Frame myFrame;
+        public IFrameService frameService { get; }
+        public IFrameShopService frameShopService { get; }
+        public IMaterialService materialService { get; }
+
+        private FrameShopModel myFrameShop = new FrameShopModel();
+        private FrameModel myFrame;
 
         private ObservableCollection<CheckedListItem<string>> _customCheckBox;
         public ObservableCollection<CheckedListItem<string>> CustomCheckBox
         {
-
             set
             {
                 _customCheckBox = value;
@@ -117,15 +120,21 @@ namespace FrameShopWPF
             }
         }
 
-        public MainViewModel()
+        public MainViewModel(IFrameService _frameService, IFrameShopService _frameShopService, IMaterialService _materialService)
         {
-            myFrameShop.FrameShopFill();
-
+            frameService = _frameService;
+            frameShopService = _frameShopService;
+            materialService = _materialService;
             CustomCheckBox = new ObservableCollection<CheckedListItem<string>>();
 
-            foreach (Material material in myFrameShop.Materials)
+            foreach (MaterialModel material in materialService.GetMaterials())
             {
-                CustomCheckBox.Add(new CheckedListItem<string>() { Item = material.Name });
+                frameShopService.FrameShopFill(material, myFrameShop);
+            }
+
+            foreach (string name in frameShopService.NamesOfMaterials(myFrameShop))
+            {
+                CustomCheckBox.Add(new CheckedListItem<string>() { Item = name });
             }
         }
 
@@ -135,41 +144,16 @@ namespace FrameShopWPF
             {
                 return new DelegateCommand((obj) =>
                 {
-                    CheckLabel = "";
 
-                    myFrame = new Frame()
+                    myFrame = new FrameModel()
                     {
                         Width = WidthVM,
                         Length = LengthVM,
                         Quantity = QuantityVM
                     };
 
-                    foreach (Material material in myFrameShop.Materials)
-                    {
-                        foreach (CheckedListItem<string> i in CustomCheckBox)
-                        {
-                            if (material.Name == i.Item & i.IsChecked == true)
-                            {
-
-                                myFrame.Materials.Add(material);
-
-                                int finalAmount = myFrame.FinalAmount(material);
-
-                                if (material.QuanInStock >= finalAmount)
-                                {
-                                    CheckLabel += "You have enough of " + material.Name + ".\nYou need: "
-                                        + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
-                                }
-
-                                else if (material.QuanInStock < finalAmount)
-                                {
-                                    CheckLabel += "You don't have enough of " + material.Name + ".\nYou need: "
-                                        + finalAmount + ". You have: " + material.QuanInStock + ".\n\n";
-                                }
-                            }
-                        }
-                    }
-                    myFrame.Save();
+                    frameService.CreateFrame(myFrameShop, this, myFrame);
+                    frameService.Save(myFrame);
                 });
             }
         }

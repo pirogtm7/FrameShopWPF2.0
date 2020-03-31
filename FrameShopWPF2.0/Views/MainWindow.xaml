@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:FrameShopWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="512.325" Width="498.823">
-    <Window.DataContext>
-        <local:MainViewModel />
-    </Window.DataContext>
     <Grid Margin="0,0,0,3.4" HorizontalAlignment="Left" Width="489">
         <ListBox x:Name="materialsListBox" ItemsSource="{Binding CustomCheckBox}" HorizontalAlignment="Left" Height="183" Margin="14,49,0,0" VerticalAlignment="Top" Width="100">
             <ListBox.ItemTemplate>

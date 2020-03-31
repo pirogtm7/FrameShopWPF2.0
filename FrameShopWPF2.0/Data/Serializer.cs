@@ -10,11 +10,9 @@ namespace FrameShopWPF
 {
     public class Serializer
     {
-
         interface ISerialization
         {
             void Serialization(Object obj, string path);
-            //Object Deserialization(string path);
         }
 
         public class XMLSerializator : ISerialization
@@ -32,15 +30,6 @@ namespace FrameShopWPF
                     xmlSerializer.WriteObject(stream, obj);
                 }
             }
-
-            //public Object Deserialization(string path)
-            //{
-            //    using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
-            //    {
-            //        return xmlSerializer.ReadObject(stream);
-            //    }
-            //}
         }
-
     }
 }

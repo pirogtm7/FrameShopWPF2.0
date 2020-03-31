@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace FrameShopWPF
 {
-    
+	public interface IMaterialService
+	{
+		IEnumerable<MaterialModel> GetMaterials();
+	}
 }
